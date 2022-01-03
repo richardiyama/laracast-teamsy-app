@@ -38,7 +38,7 @@ class Register extends Component
         $user = User::create([
             'email' => $this->email,
             'name' => $this->name,
-            'role' => 'admin',
+            'role' => 'Admin',
             'password' => Hash::make($this->password),
             'tenant_id' => $tenant->id,
         ]);

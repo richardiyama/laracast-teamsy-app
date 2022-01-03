@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Department;
+use App\Models\Department;
 use Livewire\Component;
 
 class DepartmentForm extends Component
