@@ -6,12 +6,13 @@ use App\Scopes\TenantScope;
 use App\Traits\BelongsToTenant;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable
 {
-    use Notifiable, BelongsToTenant;
+    use Notifiable, BelongsToTenant,HasFactory;
 
     /**
      * The attributes that are mass assignable.
@@ -45,7 +46,14 @@ class User extends Authenticatable
         if($this->photo) {
             return Storage::disk('s3-public')->url($this->photo);
         }
-        return '';
+        return 'https://avatars.dicebear.com/api/initials/' . $this->name . '.svg';
+    }
+
+    public static function search($query)
+    {
+        return empty($query) ? static::query()
+            : static::where('name', 'like', '%'.$query.'%')
+                ->orWhere('email', 'like', '%'.$query.'%');
     }
 
     public function isAdmin()
