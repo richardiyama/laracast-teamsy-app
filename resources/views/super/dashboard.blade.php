@@ -105,6 +105,9 @@
                     </div>
                 </div>
             </div>
+
+            <x-login-chart />
+
         </div>
     </div>
 
